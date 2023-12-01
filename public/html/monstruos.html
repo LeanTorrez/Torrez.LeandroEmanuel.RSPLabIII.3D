@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- cdn de bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Monstruos</title>
 </head>
@@ -90,40 +91,77 @@
             <h3>Filtros</h3>
 
             <div class="row justify-content-center">
-                <div class="col-6">
+
+                <div class="col-12 text-center">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-md dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-value="Todos">
+                        Filtrado Tipo por: Todos
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" type="button" data-value="Todos">Todos</button>
+                            <button class="dropdown-item" type="button" data-value="Esqueleto">Esqueleto</button>
+                            <button class="dropdown-item" type="button" data-value="Zombie">Zombie</button>
+                            <button class="dropdown-item" type="button" data-value="Vampiro">Vampiro</button>
+                            <button class="dropdown-item" type="button" data-value="Fantasma">Fantasma</button>
+                            <button class="dropdown-item" type="button" data-value="Bruja">Bruja</button>
+                            <button class="dropdown-item" type="button" data-value="Hombre Lobo">Hombre Lobo</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- filtro del select quitado para que no rompa el programa  -->
+                <!-- <div class="col-6">
                     <label for="tipoFiltro" class="form-label">Filtrar Tipo</label>
                     <select name="tipoFiltro" id="tipoFiltro" class="form-select"></select>
-                </div>
+                </div> -->
             </div>
 
             <div class="row my-4">
                 <div class="col-sm">
-                    <label for="promedioMiedo" class="form-label">Promedio Miedo</label>
-                    <input type="text" id="promedioMiedo" readonly>
+                    <div class="row">
+                        <label for="promedioMiedo" class="form-label">Promedio Miedo</label>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="promedioMiedo" readonly>
+                    </div>
                 </div>
-                
+                <div class="col-sm">
+                    <div class="row">
+                        <label for="promedioMiedo" class="form-label">Maximo Miedo</label>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="maximoMiedo" readonly>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="row">
+                        <label for="promedioMiedo" class="form-label">Minimo Miedo</label>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="minimoMiedo" readonly>
+                    </div>
+                </div>
             </div>
             <div class="row justify-content-center" id="filtros-tabla">
                 <p>Seleccione como desea filtrar la tabla</p>
-                <div class="col-2">
-                    <label for="checkNombre"  class="form-check-label h5">Nombre</label>
-                    <input type="checkbox" name="filtroTable" class="form-check-input" value="nombre" id="checkNombre" checked>
+                <div class="col">
+                        <label for="checkNombre"  class="form-check-label h5">Nombre</label>
+                        <input type="checkbox" name="filtroTable" class="form-check-input" value="nombre" id="checkNombre">
                 </div>
-                <div class="col-2">
-                    <label for="checkAlias" class="form-check-label h5">Alias</label>
-                    <input type="checkbox" name="filtroTable" class="form-check-input" value="alias" id="checkAlias" checked>
+                <div class="col">
+                        <label for="checkAlias" class="form-check-label h5">Alias</label>
+                        <input type="checkbox" name="filtroTable" class="form-check-input" value="alias" id="checkAlias"> 
                 </div>
-                <div class="col-2">
+                <div class="col">
                     <label for="checkMiedo" class="form-check-label h5">Miedo</label>
-                    <input type="checkbox" name="filtroTable"  class="form-check-input" value="miedo" id="checkMiedo" checked>
+                    <input type="checkbox" name="filtroTable"  class="form-check-input" value="miedo" id="checkMiedo">
                 </div>
-                <div class="col-2">
+                <div class="col">
                     <label for="checkDefensa" class="form-check-label h5">Defensa</label>
-                    <input type="checkbox" name="filtroTable" class="form-check-input" value="defensa" id="checkDefensa" checked>
+                    <input type="checkbox" name="filtroTable" class="form-check-input" value="defensa" id="checkDefensa">
                 </div>
-                <div class="col-2">
+                <div class="col">
                     <label for="checkTipo" class="form-check-label h5">Tipo</label>
-                    <input type="checkbox" name="filtroTable" class="form-check-input" value="tipo" id="checkTipo" checked>
+                    <input type="checkbox" name="filtroTable" class="form-check-input" value="tipo" id="checkTipo">
                 </div>
             </div>
         </div>
@@ -148,6 +186,7 @@
         <p>Laboratorio 3 - Todos los derechos reservados 2023 &copy;</p>
     </footer>
 
+    <!-- cdn de axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script type="module" src="../scripts/paginaMonstruos.js"></script>

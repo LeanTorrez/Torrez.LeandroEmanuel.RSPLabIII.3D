@@ -37,7 +37,7 @@
       "nombre": "El hombre sin cabeza",
       "tipo": "Esqueleto",
       "alias": "Dullahan",
-      "miedo": 100,
+      "miedo": 92,
       "defensa": "Pocion"
     },
     {
@@ -103,6 +103,30 @@
       "miedo": 71,
       "defensa": "Crucifijo",
       "id": 15
+    },
+    {
+      "id": 16,
+      "nombre": "Alfred von Müller",
+      "tipo": "Vampiro",
+      "alias": "Conde Alfred",
+      "miedo": 3,
+      "defensa": "Estaca"
+    },
+    {
+      "nombre": "Esqueletin",
+      "tipo": "Esqueleto",
+      "alias": "Tekandankazoku",
+      "miedo": 9,
+      "defensa": "Pocion",
+      "id": 17
+    },
+    {
+      "nombre": "Okiku",
+      "tipo": "Fantasma",
+      "alias": "Espiritu Herrante",
+      "miedo": 59,
+      "defensa": "Plata",
+      "id": 18
     }
   ]
 }

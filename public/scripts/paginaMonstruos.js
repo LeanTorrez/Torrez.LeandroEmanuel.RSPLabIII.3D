@@ -13,11 +13,13 @@ const table = document.getElementById("tablaMonstruos");
 //Referencia al loader
 const loader = document.getElementById("loader");
 
+//Referencia al button formulario eliminar
 const btnEliminar = document.getElementById("eliminar");
+//Referencia al button formulario cancelar
 const btnCancelar = document.getElementById("cancelar");
 
 ///EVENTO CUANDO HACEN CLICK EN LA TABLE
-//CAMBIARLO PARA GET UNMONSTRUO
+//tarda en cargar la informacion 2 seg por delay
 table.addEventListener("click",(e)=>{
     if(e.target.matches("td")){
         const id = e.target.parentElement.dataset.id;
@@ -49,6 +51,7 @@ btnCancelar.addEventListener("click",()=>{
     resetForm();
 })
 
+//Resetea el form y cambia los nombre de los botones, esconde cancelar y eliminar
 function resetForm(){
     form.reset();
     document.getElementById("agregar").textContent= "Agregar";
@@ -56,7 +59,7 @@ function resetForm(){
     btnCancelar.classList.add("oculto");
 }
 
-//BOTON eliminar
+//Evento boton eliminar
 btnEliminar.addEventListener("click",()=>{
     const {txtId} = form;
     let id = parseInt(txtId.value);
@@ -75,6 +78,7 @@ btnEliminar.addEventListener("click",()=>{
     }
 })
 
+//Verifica los datos del form, y muestra un alert bootstrap en caso de que falte algo
 function verificarDatosFormulario(txtNombre,txtAlias,slcTipo,rdoDefensa,rngMiedo){
     let retorno = true;
     let stringAlert = "";
@@ -105,16 +109,16 @@ function verificarDatosFormulario(txtNombre,txtAlias,slcTipo,rdoDefensa,rngMiedo
     }
 
     if(!retorno){
+        //escribo en inner htlm los mensajes warnings
         alert.innerHTML = stringAlert;
         alert.classList.remove("oculto");
     }
     return retorno;
 }
 
-//FORM
+//Referencia form
 const form = document.forms[0];
-
-//Evento para el alert
+//Evento para eliminar el alert cuando faltan campos en el form, cuando se ingresa algo se oculta el alert
 form.addEventListener("input",()=>{
     const alerta = document.getElementById("alertForm");
     if(!alerta.classList.contains("oculto")){
@@ -122,7 +126,7 @@ form.addEventListener("input",()=>{
     }
 });
 
-//Evento submit del form
+//Evento submit del form para el post y put
 form.addEventListener("submit",(e)=>{
     e.preventDefault();
     console.log("Enviando...");
@@ -160,15 +164,18 @@ form.addEventListener("submit",(e)=>{
     }
 });
 
-//Funcion para cargar el select
+//Referencia del select del form
 const select = document.getElementById("tipoSelector");
 
-const tiposFiltros = ["Todos","Esqueleto","Zombie","Vampiro","Fantasma","Bruja","Hombre Lobo"];
-const selectTipoFiltro = document.getElementById("tipoFiltro");
-asignarDatosSelect(selectTipoFiltro,tiposFiltros);
+
+//variables que son para el selectipoFiltro que fue cambiado por el dropdown de bootstrap
+//const tiposFiltros = ["Todos","Esqueleto","Zombie","Vampiro","Fantasma","Bruja","Hombre Lobo"];
+//const selectTipoFiltro = document.getElementById("tipoFiltro");
+//asignarDatosSelect(selectTipoFiltro,tiposFiltros);
 
 asignarDatosSelect(select,tipos); 
 
+//asigna el array al nodo select con sus respectivos option
 function asignarDatosSelect(nodo, arrayTipos){
     arrayTipos.forEach(e => {
         const nodoOpcion = document.createElement("option");
@@ -183,40 +190,51 @@ document.getElementById("contenedor-filtros").addEventListener("change",()=>{
     actualizarTabla(URL);
 });
 
+const orderMiedo = (a, b) => b.miedo - a.miedo;
 
-//CUANDO SE ABRE LA PAGINA
+//CUANDO SE ABRE LA PAGINA O SE ACTUALIZA
 mostrarLoader();
 getMonstruos(URL)
 .then(data => {
     console.log("Se entro a la pagina por primera vez");
-    data.sort((a, b) => b.miedo - a.miedo);
+    data.sort(orderMiedo);
     
-    const filtroDatos = selectedFiltroTipo();
-    let nuevaData = filtrarTablaPorTipo(data,filtroDatos);
+    /* const filtroDatos = selectedFiltroTipo();
+    let nuevaData = filtrarTablaPorTipo(data,filtroDatos); */
+
+    const filtroDatosDropdown = dropdownFiltroTipo();
+    let nuevaData = filtrarTablaPorTipo(data,filtroDatosDropdown);
 
     document.getElementById("promedioMiedo").value = promedioMiedo(nuevaData);
+    document.getElementById("maximoMiedo").value = maximoMiedo(nuevaData);
+    document.getElementById("minimoMiedo").value = minimoMiedo(nuevaData);
 
-    const seccionFiltros = document.getElementById("filtros-tabla");
-    const checkboxsFiltros = seccionFiltros.querySelectorAll('input[type="checkbox"]:checked');
-    nuevaData = filtrarTablaPorColumnas(nuevaData,checkboxsFiltros);
+    const seccionFiltros = document.getElementById("filtros-tabla").querySelectorAll('input[type="checkbox"]');
+    checkboxPorLocalStorage(seccionFiltros);
+    nuevaData = filtrarTablaPorLocalStorage(data);
     crearTabla(table,nuevaData);
 })
 .catch(error => {
     console.error(error);
 }).finally(()=> esconderLoader());
 
-//SI NECESITAMOS ACTUALIZAR LA PAGINA
+//Funcion para actualizar la tabla cuando hacemos post, put, delete con su respectivo loader
 function actualizarTabla(url){
-    console.log("Entro actualizar tabla");
     mostrarLoader();
     getMonstruos(url)
     .then(data => {
-        data.sort((a, b) => b.miedo - a.miedo);
+        data.sort(orderMiedo);
 
-        const filtroDatos = selectedFiltroTipo();
-        let nuevaData = filtrarTablaPorTipo(data,filtroDatos); 
+        /* const filtroDatos = selectedFiltroTipo();
+        let nuevaData = filtrarTablaPorTipo(data,filtroDatos); */
+
+        //obtengo el filtro del button dropdown y lo aplico
+        const filtroDatosDropdown = dropdownFiltroTipo();
+        let nuevaData = filtrarTablaPorTipo(data,filtroDatosDropdown);
 
         document.getElementById("promedioMiedo").value = promedioMiedo(nuevaData);
+        document.getElementById("maximoMiedo").value = maximoMiedo(nuevaData);
+        document.getElementById("minimoMiedo").value = minimoMiedo(nuevaData);
         
         const seccionFiltros = document.getElementById("filtros-tabla");
         const checkboxsFiltros = seccionFiltros.querySelectorAll('input[type="checkbox"]:checked');
@@ -254,9 +272,10 @@ function filtrarTablaPorTipo(data, filtro){
 function filtrarTablaPorColumnas(data, columnas){
     if(columnas == null) return null;
     const atributosColumnas = Array.from(columnas).map(check => check.value);
-    //le pongo al array de atributos id, para que no me lo ignore al hacer el filtrado
+    //le pongo al array de atributos id, para que no me lo ignore al hacer el filtrado y para crear la tabla
     atributosColumnas.push("id");
-    //localStorage.setItem("filtroColumnas",JSON.stringify(atributosColumnas));
+    //guardo los datos actuales de los checkboxes en localstorage
+    localStorage.setItem("filtroColumnas",JSON.stringify(atributosColumnas));
     const nuevaData = data.map(obj => {
         const nuevoObj = {};
         atributosColumnas.forEach(atributo => {
@@ -270,7 +289,7 @@ function filtrarTablaPorColumnas(data, columnas){
 }
 
 
-//REHACER no elimino todos los nodos
+//REHACER no elimino todos los nodos que tienen los tr en tbody y thead
 function removerTabla(){
     const tbody = table.querySelector('tbody');
     const thead = table.querySelector('thead');
@@ -299,3 +318,89 @@ function promedioMiedo(data){
     return promedio > 0 ? promedio : "Sin valores";
 }
 
+//Recuperatorio Segundo parcial
+
+//Miedo maximo registrado en la tabla
+function maximoMiedo(data){
+    if(!Array.isArray(data)) return "Sin valores";
+    
+    let max = data.reduce(function(anterior,actual){
+        return anterior > actual.miedo ? anterior : actual.miedo;
+    },-1);
+    return max > -1 ? max : "Sin valores" ;
+}
+
+//Miedo minimo registrado en la tabla
+function minimoMiedo(data){
+    if(!Array.isArray(data)) return "Sin valores";
+    
+    let min = data.reduce(function(anterior, actual){
+        return anterior < actual.miedo ? anterior : actual.miedo;
+    },101);
+    return min < 101 ? min : "Sin valores";
+}
+
+//seteo los datos del localstorage en una variable, en caso de no existir este item en el local
+//lo creo y lo guardo y lo envio como si estuvieran todos los filtros checkeados
+function filtrosLocalStorage(){
+    const columnas = [];
+    if (localStorage.getItem("filtroColumnas")) {
+      JSON.parse(localStorage.getItem("filtroColumnas")).forEach((element) => {
+        columnas.push(element);
+      });
+    } else {
+      localStorage.setItem("filtroColumnas", JSON.stringify(["nombre","alias","miedo","defensa","tipo","id"]));
+      return ["nombre","alias","miedo","defensa","tipo","id"];
+    }
+    return columnas;
+}
+
+//cuando cargo la pagina tomo los valores que se guardaron el localstorage con anterioridad
+function filtrarTablaPorLocalStorage(data){
+    //filtros del localstorage
+    const filtros = filtrosLocalStorage();
+    const nuevaData = data.map(obj => {
+        const nuevoObj = {};
+        filtros.forEach(atributo => {
+            if (obj.hasOwnProperty(atributo)) {
+                nuevoObj[atributo] = obj[atributo];
+            }
+        });
+        return nuevoObj;
+    });
+    return nuevaData
+}
+
+//cuando se carga la pagina se pondran checked los checkbox que tiene sus valores en el localstorage
+function checkboxPorLocalStorage(checkboxs){
+    const filtros = filtrosLocalStorage();
+    Array.from(checkboxs).forEach(check => {
+        if(filtros.includes(check.value)) check.checked = true;
+    })
+}
+
+//Obtengo la referencia de los dropdown-items
+const dropdownItems = document.querySelectorAll('button.dropdown-item');
+
+//recorro por cada dropdownItem y adhiero un evento para cuando se le hacer click en alguno de ellos
+dropdownItems.forEach((item) =>{
+    item.addEventListener('click', function() {
+        //obtengo el valor del atributo que hice click
+        const texto = item.getAttribute("data-value");
+        //referencia al boton que aprieto para desplegar el dropdown
+        const dropdown = document.getElementById("dropdownMenuButton");
+
+        //cambio el textContent del dropdown para poder ver cual es el filtro, como se veria en el select
+        dropdown.textContent = `Filtrado Tipo por: ${texto}`;
+        //le cambio el data-value de boton desplegable y le asigno el filtro nuevo
+        dropdown.setAttribute("data-value",texto);
+
+        //Actualizo la tabla con el nuevo filtro tipo elegido
+        actualizarTabla(URL);
+    });
+});
+
+//Obtengo la referencia del button que despliega y retorno su atributo data.value
+function dropdownFiltroTipo(){
+    return document.getElementById("dropdownMenuButton").getAttribute("data-value");
+}
