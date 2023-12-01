@@ -1,0 +1,104 @@
+*{
+    margin:5px;
+    border-radius: 5px;
+}
+img{
+    height: 400px;
+    width: 400px;
+}
+.table.oculto,.oculto{
+    display: none;
+}
+body{
+    margin:0;
+    border: 0;
+    background-image: url("../assets/background/background3.webp");
+    background-size:cover ;
+    background-repeat: no-repeat; 
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column; 
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    min-height: 100%;
+    font-family: "BloodyScaryRegular",sans-serif;
+}
+fieldset{
+    /* background-color: rgb(32, 1, 32); */
+    border: 10px solid rgb(82, 5, 82);
+    background-color: rgba(180, 144, 180, 0.642);
+    border-radius: 15px;
+}
+h3,p{
+    text-align: center;
+}
+button{
+    margin-left: 10px;
+}
+label{
+    margin-left: 10px;
+}
+.logo{
+    height: 200px;
+    width: 200px;
+}
+.icono{
+    height: 30px;
+    width: 40px;
+}
+.table{
+    border: 10px solid rgb(82, 5, 82);
+    background-color: rgba(180, 144, 180, 0.642);
+}
+#contenedor-filtros{
+    border: 10px solid rgb(82, 5, 82);
+    background-color: rgba(180, 144, 180, 0.642);
+    border-radius: 25px;
+}
+header,footer{
+    background-color: rgba(70, 32, 70, 0.642);
+    color: rgba(155, 18, 173, 0.861);
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+}
+footer{
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, rgb(0, 0, 0) , rgba(0, 0, 0, 0));
+    align-items: end;
+}
+ul{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+h1{
+    color: rgb(255, 115, 0);
+}
+a{
+    text-decoration: none;
+    color: rgb(255, 115, 0);
+    font-size: 25px;
+}
+.card{
+    width: 18rem;
+    background-color: rgba(235, 218, 235, 0.725);
+}
+input{
+    color: black;
+    font-weight: bold;
+}
+@media screen and (max-width:1500px) {
+    .navbar>ul{
+        display: flex;
+        flex-direction: column;
+    }
+}

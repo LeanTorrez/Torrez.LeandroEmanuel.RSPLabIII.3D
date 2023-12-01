@@ -1,0 +1,108 @@
+{
+  "Monstruos": [
+    {
+      "id": 1,
+      "nombre": "Christoffer XII",
+      "tipo": "Vampiro",
+      "alias": "Dracula",
+      "miedo": 87,
+      "defensa": "Estaca"
+    },
+    {
+      "id": 2,
+      "nombre": "Juan Perez",
+      "tipo": "Hombre Lobo",
+      "alias": "Lobo Feroz",
+      "miedo": 56,
+      "defensa": "Crucifijo"
+    },
+    {
+      "id": 3,
+      "nombre": "El Franki",
+      "tipo": "Zombie",
+      "alias": "Frankestein",
+      "miedo": 45,
+      "defensa": "Plata"
+    },
+    {
+      "id": 4,
+      "nombre": "Hombre muerto",
+      "tipo": "Zombie",
+      "alias": "zombi",
+      "miedo": 25,
+      "defensa": "Crucifijo"
+    },
+    {
+      "id": 7,
+      "nombre": "El hombre sin cabeza",
+      "tipo": "Esqueleto",
+      "alias": "Dullahan",
+      "miedo": 100,
+      "defensa": "Pocion"
+    },
+    {
+      "id": 8,
+      "nombre": "Mr. Cow",
+      "tipo": "Zombie",
+      "alias": "Minotauro",
+      "miedo": 72,
+      "defensa": "Crucifijo"
+    },
+    {
+      "nombre": "Juan Perez",
+      "tipo": "Fantasma",
+      "alias": "El fantasma de Canterville",
+      "miedo": 33,
+      "defensa": "Pocion",
+      "id": 9
+    },
+    {
+      "nombre": "Ellie",
+      "tipo": "Bruja",
+      "alias": "Blair",
+      "miedo": 67,
+      "defensa": "Estaca",
+      "id": 10
+    },
+    {
+      "nombre": "Casper",
+      "tipo": "Fantasma",
+      "alias": "Gasparin",
+      "miedo": 7,
+      "defensa": "Crucifijo",
+      "id": 11
+    },
+    {
+      "id": 12,
+      "nombre": "Beatrice",
+      "tipo": "Bruja",
+      "alias": "Medusa",
+      "miedo": 66,
+      "defensa": "Crucifijo"
+    },
+    {
+      "nombre": "Wolverine",
+      "tipo": "Hombre Lobo",
+      "alias": "Werewolf",
+      "miedo": 50,
+      "defensa": "Plata",
+      "id": 13
+    },
+    {
+      "id": 14,
+      "nombre": "Esqueleto hambriento",
+      "tipo": "Esqueleto",
+      "alias": "Gashadokuro",
+      "miedo": 50,
+      "defensa": "Crucifijo"
+    },
+    {
+      "nombre": "Firulais",
+      "tipo": "Hombre Lobo",
+      "alias": "Cerbero",
+      "miedo": 71,
+      "defensa": "Crucifijo",
+      "id": 15
+    }
+  ]
+}
